@@ -1,4 +1,3 @@
-import FlagIcon from './FlagIcon'
 import MatchRow from './MatchRow'
 import StandingsTable from './StandingsTable'
 
@@ -45,53 +44,14 @@ export default function GroupBlock({ group, matches, standings }) {
         <span style={{ color: '#C9A227', marginLeft: 6 }}>&#9670;</span>
       </div>
 
-      {/* Teams list (summary — just flags + names before standings) */}
-      <div style={{ padding: '4px 0', borderBottom: '1px solid #D4C5A0', background: '#F5EDD6' }}>
-        {group.teams.map((team, idx) => (
-          <div
-            key={team.id}
-            className="flex items-center gap-2"
-            style={{
-              padding: '2px 6px',
-              fontSize: '10px',
-              fontFamily: 'Inter, sans-serif',
-              color: '#1B4D2E',
-              background: idx % 2 === 0 ? '#F5EDD6' : '#EDE4CA',
-            }}
-          >
-            <span
-              style={{
-                width: 14,
-                textAlign: 'center',
-                fontFamily: 'Oswald, sans-serif',
-                fontSize: '9px',
-                color: '#999',
-                flexShrink: 0,
-              }}
-            >
-              {idx + 1}
-            </span>
-            <FlagIcon code={team.flag} name={team.name} size="sm" />
-            <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {team.name}
-            </span>
-            <span
-              style={{
-                fontFamily: 'Oswald, sans-serif',
-                fontSize: '9px',
-                color: '#999',
-                flexShrink: 0,
-              }}
-            >
-              {team.code}
-            </span>
-          </div>
-        ))}
+      {/* Standings section */}
+      <div style={{ borderBottom: groupMatches.length > 0 ? '1px solid #D4C5A0' : 'none' }}>
+        <StandingsTable groupId={group.id} standings={groupStandings} />
       </div>
 
       {/* Matches section */}
       {groupMatches.length > 0 && (
-        <div style={{ borderBottom: '1px solid #D4C5A0' }}>
+        <div>
           <div
             style={{
               padding: '2px 4px',
@@ -110,24 +70,6 @@ export default function GroupBlock({ group, matches, standings }) {
           ))}
         </div>
       )}
-
-      {/* Standings section */}
-      <div>
-        <div
-          style={{
-            padding: '2px 4px',
-            fontSize: '8px',
-            fontFamily: 'Oswald, sans-serif',
-            letterSpacing: '0.12em',
-            color: '#1B4D2E',
-            background: '#EDE4CA',
-            textTransform: 'uppercase',
-          }}
-        >
-          Standings
-        </div>
-        <StandingsTable groupId={group.id} standings={groupStandings} />
-      </div>
     </div>
   )
 }
