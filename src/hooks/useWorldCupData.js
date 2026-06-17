@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { fetchMatches, fetchStandings, hasApiKey } from '../api/footballData'
-import { GROUPS, MATCHES, getKnockoutStructure, computeStandings } from '../data/worldcup2026'
+import { GROUPS, MATCHES, getKnockoutStructure, computeStandings, TLA_TO_FLAG } from '../data/worldcup2026'
+
+function getFlag(tla) {
+  return TLA_TO_FLAG[tla?.toUpperCase()] || tla?.toLowerCase() || null
+}
 
 function normalizeApiMatches(apiMatches) {
   return apiMatches.map((m) => ({
@@ -8,10 +12,10 @@ function normalizeApiMatches(apiMatches) {
     groupId: m.group ? m.group.replace('GROUP_', '') : null,
     stage: m.stage,
     homeTeam: m.homeTeam
-      ? { id: m.homeTeam.id, name: m.homeTeam.name, code: m.homeTeam.tla, flag: m.homeTeam.tla?.toLowerCase() }
+      ? { id: m.homeTeam.id, name: m.homeTeam.name, code: m.homeTeam.tla, flag: getFlag(m.homeTeam.tla) }
       : null,
     awayTeam: m.awayTeam
-      ? { id: m.awayTeam.id, name: m.awayTeam.name, code: m.awayTeam.tla, flag: m.awayTeam.tla?.toLowerCase() }
+      ? { id: m.awayTeam.id, name: m.awayTeam.name, code: m.awayTeam.tla, flag: getFlag(m.awayTeam.tla) }
       : null,
     homeScore: m.score?.fullTime?.home ?? null,
     awayScore: m.score?.fullTime?.away ?? null,
@@ -76,7 +80,7 @@ export function useWorldCupData() {
                 id: row.team.id,
                 name: row.team.name,
                 code: row.team.tla,
-                flag: row.team.tla?.toLowerCase(),
+                flag: getFlag(row.team.tla),
               },
               played: row.playedGames,
               won: row.won,

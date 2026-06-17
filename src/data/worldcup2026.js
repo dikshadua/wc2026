@@ -1,12 +1,28 @@
+// Maps 3-letter TLA codes (from football-data.org API) to ISO 2-letter flag codes (for flagcdn.com)
+export const TLA_TO_FLAG = {
+  CZE: 'cz', MEX: 'mx', RSA: 'za', KOR: 'kr',
+  BIH: 'ba', CAN: 'ca', QAT: 'qa', SUI: 'ch',
+  BRA: 'br', HAI: 'ht', MAR: 'ma', SCO: 'gb-sct',
+  AUS: 'au', PAR: 'py', TUR: 'tr', USA: 'us',
+  CUW: 'cw', ECU: 'ec', GER: 'de', CIV: 'ci',
+  JPN: 'jp', NED: 'nl', SWE: 'se', TUN: 'tn',
+  BEL: 'be', EGY: 'eg', IRN: 'ir', NZL: 'nz',
+  CPV: 'cv', KSA: 'sa', ESP: 'es', URU: 'uy',
+  FRA: 'fr', IRQ: 'iq', NOR: 'no', SEN: 'sn',
+  ALG: 'dz', ARG: 'ar', AUT: 'at', JOR: 'jo',
+  COL: 'co', COD: 'cd', POR: 'pt', UZB: 'uz',
+  CRO: 'hr', ENG: 'gb-eng', GHA: 'gh', PAN: 'pa',
+}
+
 export const GROUPS = [
   {
     id: 'A',
     name: 'Group A',
     teams: [
       { id: 1, name: 'Mexico', code: 'MEX', flag: 'mx' },
-      { id: 2, name: 'Ecuador', code: 'ECU', flag: 'ec' },
-      { id: 3, name: 'Honduras', code: 'HON', flag: 'hn' },
-      { id: 4, name: 'Jamaica', code: 'JAM', flag: 'jm' },
+      { id: 2, name: 'Czechia', code: 'CZE', flag: 'cz' },
+      { id: 3, name: 'South Africa', code: 'RSA', flag: 'za' },
+      { id: 4, name: 'South Korea', code: 'KOR', flag: 'kr' },
     ],
   },
   {
@@ -14,9 +30,9 @@ export const GROUPS = [
     name: 'Group B',
     teams: [
       { id: 5, name: 'Canada', code: 'CAN', flag: 'ca' },
-      { id: 6, name: 'Uruguay', code: 'URU', flag: 'uy' },
-      { id: 7, name: 'Cameroon', code: 'CMR', flag: 'cm' },
-      { id: 8, name: "Côte d'Ivoire", code: 'CIV', flag: 'ci' },
+      { id: 6, name: 'Bosnia & Herz.', code: 'BIH', flag: 'ba' },
+      { id: 7, name: 'Qatar', code: 'QAT', flag: 'qa' },
+      { id: 8, name: 'Switzerland', code: 'SUI', flag: 'ch' },
     ],
   },
   {
@@ -24,9 +40,9 @@ export const GROUPS = [
     name: 'Group C',
     teams: [
       { id: 9, name: 'Brazil', code: 'BRA', flag: 'br' },
-      { id: 10, name: 'Croatia', code: 'CRO', flag: 'hr' },
+      { id: 10, name: 'Haiti', code: 'HAI', flag: 'ht' },
       { id: 11, name: 'Morocco', code: 'MAR', flag: 'ma' },
-      { id: 12, name: 'Mali', code: 'MLI', flag: 'ml' },
+      { id: 12, name: 'Scotland', code: 'SCO', flag: 'gb-sct' },
     ],
   },
   {
@@ -34,9 +50,9 @@ export const GROUPS = [
     name: 'Group D',
     teams: [
       { id: 13, name: 'USA', code: 'USA', flag: 'us' },
-      { id: 14, name: 'Colombia', code: 'COL', flag: 'co' },
-      { id: 15, name: 'New Zealand', code: 'NZL', flag: 'nz' },
-      { id: 16, name: 'Ukraine', code: 'UKR', flag: 'ua' },
+      { id: 14, name: 'Australia', code: 'AUS', flag: 'au' },
+      { id: 15, name: 'Paraguay', code: 'PAR', flag: 'py' },
+      { id: 16, name: 'Türkiye', code: 'TUR', flag: 'tr' },
     ],
   },
   {
@@ -44,29 +60,29 @@ export const GROUPS = [
     name: 'Group E',
     teams: [
       { id: 17, name: 'Germany', code: 'GER', flag: 'de' },
-      { id: 18, name: 'Japan', code: 'JPN', flag: 'jp' },
-      { id: 19, name: 'Costa Rica', code: 'CRC', flag: 'cr' },
-      { id: 20, name: 'Saudi Arabia', code: 'KSA', flag: 'sa' },
+      { id: 18, name: 'Curaçao', code: 'CUW', flag: 'cw' },
+      { id: 19, name: 'Ecuador', code: 'ECU', flag: 'ec' },
+      { id: 20, name: "Côte d'Ivoire", code: 'CIV', flag: 'ci' },
     ],
   },
   {
     id: 'F',
     name: 'Group F',
     teams: [
-      { id: 21, name: 'Portugal', code: 'POR', flag: 'pt' },
-      { id: 22, name: 'Paraguay', code: 'PAR', flag: 'py' },
-      { id: 23, name: 'Iraq', code: 'IRQ', flag: 'iq' },
-      { id: 24, name: 'Zimbabwe', code: 'ZIM', flag: 'zw' },
+      { id: 21, name: 'Netherlands', code: 'NED', flag: 'nl' },
+      { id: 22, name: 'Japan', code: 'JPN', flag: 'jp' },
+      { id: 23, name: 'Sweden', code: 'SWE', flag: 'se' },
+      { id: 24, name: 'Tunisia', code: 'TUN', flag: 'tn' },
     ],
   },
   {
     id: 'G',
     name: 'Group G',
     teams: [
-      { id: 25, name: 'Netherlands', code: 'NED', flag: 'nl' },
-      { id: 26, name: 'Senegal', code: 'SEN', flag: 'sn' },
-      { id: 27, name: 'Chile', code: 'CHI', flag: 'cl' },
-      { id: 28, name: 'South Korea', code: 'KOR', flag: 'kr' },
+      { id: 25, name: 'Belgium', code: 'BEL', flag: 'be' },
+      { id: 26, name: 'Egypt', code: 'EGY', flag: 'eg' },
+      { id: 27, name: 'Iran', code: 'IRN', flag: 'ir' },
+      { id: 28, name: 'New Zealand', code: 'NZL', flag: 'nz' },
     ],
   },
   {
@@ -74,9 +90,9 @@ export const GROUPS = [
     name: 'Group H',
     teams: [
       { id: 29, name: 'Spain', code: 'ESP', flag: 'es' },
-      { id: 30, name: 'South Africa', code: 'RSA', flag: 'za' },
-      { id: 31, name: 'Egypt', code: 'EGY', flag: 'eg' },
-      { id: 32, name: 'Iceland', code: 'ISL', flag: 'is' },
+      { id: 30, name: 'Cape Verde', code: 'CPV', flag: 'cv' },
+      { id: 31, name: 'Saudi Arabia', code: 'KSA', flag: 'sa' },
+      { id: 32, name: 'Uruguay', code: 'URU', flag: 'uy' },
     ],
   },
   {
@@ -84,9 +100,9 @@ export const GROUPS = [
     name: 'Group I',
     teams: [
       { id: 33, name: 'France', code: 'FRA', flag: 'fr' },
-      { id: 34, name: 'Nigeria', code: 'NGA', flag: 'ng' },
+      { id: 34, name: 'Iraq', code: 'IRQ', flag: 'iq' },
       { id: 35, name: 'Norway', code: 'NOR', flag: 'no' },
-      { id: 36, name: 'Turkey', code: 'TUR', flag: 'tr' },
+      { id: 36, name: 'Senegal', code: 'SEN', flag: 'sn' },
     ],
   },
   {
@@ -94,29 +110,29 @@ export const GROUPS = [
     name: 'Group J',
     teams: [
       { id: 37, name: 'Argentina', code: 'ARG', flag: 'ar' },
-      { id: 38, name: 'Kenya', code: 'KEN', flag: 'ke' },
-      { id: 39, name: 'Albania', code: 'ALB', flag: 'al' },
-      { id: 40, name: 'Panama', code: 'PAN', flag: 'pa' },
+      { id: 38, name: 'Algeria', code: 'ALG', flag: 'dz' },
+      { id: 39, name: 'Austria', code: 'AUT', flag: 'at' },
+      { id: 40, name: 'Jordan', code: 'JOR', flag: 'jo' },
     ],
   },
   {
     id: 'K',
     name: 'Group K',
     teams: [
-      { id: 41, name: 'England', code: 'ENG', flag: 'gb-eng' },
-      { id: 42, name: 'Tunisia', code: 'TUN', flag: 'tn' },
-      { id: 43, name: 'Bosnia & Herz.', code: 'BIH', flag: 'ba' },
-      { id: 44, name: 'DR Congo', code: 'COD', flag: 'cd' },
+      { id: 41, name: 'Portugal', code: 'POR', flag: 'pt' },
+      { id: 42, name: 'Colombia', code: 'COL', flag: 'co' },
+      { id: 43, name: 'DR Congo', code: 'COD', flag: 'cd' },
+      { id: 44, name: 'Uzbekistan', code: 'UZB', flag: 'uz' },
     ],
   },
   {
     id: 'L',
     name: 'Group L',
     teams: [
-      { id: 45, name: 'Belgium', code: 'BEL', flag: 'be' },
-      { id: 46, name: 'Peru', code: 'PER', flag: 'pe' },
-      { id: 47, name: 'Serbia', code: 'SRB', flag: 'rs' },
-      { id: 48, name: 'Australia', code: 'AUS', flag: 'au' },
+      { id: 45, name: 'England', code: 'ENG', flag: 'gb-eng' },
+      { id: 46, name: 'Croatia', code: 'CRO', flag: 'hr' },
+      { id: 47, name: 'Ghana', code: 'GHA', flag: 'gh' },
+      { id: 48, name: 'Panama', code: 'PAN', flag: 'pa' },
     ],
   },
 ]

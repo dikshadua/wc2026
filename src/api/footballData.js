@@ -12,8 +12,8 @@ const api = axios.create({
 })
 
 export const fetchCompetition = () => api.get(`/competitions/${COMPETITION_ID}`)
-export const fetchMatches = () => api.get(`/competitions/${COMPETITION_ID}/matches`)
-export const fetchStandings = () => api.get(`/competitions/${COMPETITION_ID}/standings`)
-export const fetchTeams = () => api.get(`/competitions/${COMPETITION_ID}/teams`)
+export const fetchMatches = () => api.get(`/competitions/${COMPETITION_ID}/matches?season=2026`)
+export const fetchStandings = () => api.get(`/competitions/${COMPETITION_ID}/standings?season=2026`)
+export const fetchTeams = () => api.get(`/competitions/${COMPETITION_ID}/teams?season=2026`)
 
 export const hasApiKey = () => Boolean(API_KEY)
