@@ -62,18 +62,28 @@ export function useWorldCupData() {
         normalizedMatches = normalizeApiMatches(apiData.matches || [])
         setMatches(normalizedMatches)
 
+        const finished = normalizedMatches.filter((m) => m.status === 'FINISHED')
+        console.log('[WC2026] Matches loaded:', normalizedMatches.length, '| Finished:', finished.length)
+        console.log('[WC2026] Sample finished match:', finished[0])
+
         const live = normalizedMatches.filter(
           (m) => m.status === 'IN_PLAY' || m.status === 'PAUSED'
         )
         setLiveMatches(live)
+      } else {
+        console.error('[WC2026] Matches fetch failed:', matchesRes.reason)
       }
 
       if (standingsRes.status === 'fulfilled') {
         const apiStandings = standingsRes.value.data?.standings || []
+        console.log('[WC2026] Standings from API:', apiStandings.length, 'groups')
+        console.log('[WC2026] Raw standings sample:', apiStandings[0])
+
         const standingsMap = {}
 
         apiStandings.forEach((s) => {
           const groupId = s.group?.replace('GROUP_', '')
+          console.log('[WC2026] Group raw value:', s.group, '→ parsed:', groupId)
           if (groupId) {
             standingsMap[groupId] = s.table.map((row) => ({
               team: {
@@ -94,17 +104,22 @@ export function useWorldCupData() {
           }
         })
 
+        console.log('[WC2026] Standings map keys:', Object.keys(standingsMap))
+
         if (Object.keys(standingsMap).length > 0) {
           setStandings(standingsMap)
         } else {
+          console.log('[WC2026] No API standings, computing from matches...')
           setStandings(buildStandingsFromMatches(normalizedMatches))
         }
       } else {
+        console.error('[WC2026] Standings fetch failed:', standingsRes.reason)
         setStandings(buildStandingsFromMatches(normalizedMatches))
       }
 
       setIsApiConnected(true)
     } catch (err) {
+      console.error('[WC2026] loadData error:', err)
       setError(err.message || 'Failed to load data')
       setIsApiConnected(false)
     } finally {
