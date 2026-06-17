@@ -45,7 +45,7 @@ export default function GroupBlock({ group, matches, standings }) {
       </div>
 
       {/* Standings section */}
-      <div style={{ borderBottom: groupMatches.length > 0 ? '1px solid #D4C5A0' : 'none' }}>
+      <div style={{ borderBottom: groupMatches.length > 0 ? '1px solid #DDDDDD' : 'none' }}>
         <StandingsTable groupId={group.id} standings={groupStandings} />
       </div>
 
@@ -59,7 +59,7 @@ export default function GroupBlock({ group, matches, standings }) {
               fontFamily: 'Oswald, sans-serif',
               letterSpacing: '0.12em',
               color: '#1B4D2E',
-              background: '#EDE4CA',
+              background: '#F0F0F0',
               textTransform: 'uppercase',
             }}
           >

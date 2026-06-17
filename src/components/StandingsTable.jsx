@@ -34,7 +34,7 @@ export default function StandingsTable({ groupId, standings }) {
         const isFirst = idx === 0
         const isSecond = idx === 1
         const borderColor = isFirst ? '#C9A227' : isSecond ? '#A8A9AD' : 'transparent'
-        const rowBg = idx % 2 === 0 ? '#FFFFFF' : '#F9F4E8'
+        const rowBg = idx % 2 === 0 ? '#FFFFFF' : '#F7F7F7'
 
         return (
           <div
@@ -106,8 +106,8 @@ export default function StandingsTable({ groupId, standings }) {
           padding: '2px 4px',
           fontSize: '8px',
           color: '#666',
-          background: '#F5EDD6',
-          borderTop: '1px solid #D4C5A0',
+          background: '#F5F5F5',
+          borderTop: '1px solid #DDDDDD',
         }}
       >
         <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}>

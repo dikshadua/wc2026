@@ -100,7 +100,7 @@ export default function MatchRow({ match }) {
         padding: '1px 4px',
         fontSize: '10px',
         fontFamily: 'Inter, sans-serif',
-        borderBottom: '1px solid #EDE4CA',
+        borderBottom: '1px solid #EEEEEE',
       }}
     >
       {/* Home team */}

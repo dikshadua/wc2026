@@ -25,7 +25,7 @@ function LoadingOverlay() {
     >
       <div
         style={{
-          background: '#F5EDD6',
+          background: '#FFFFFF',
           border: '3px solid #C9A227',
           borderRadius: '6px',
           padding: '24px 40px',
@@ -103,7 +103,7 @@ export default function App() {
     <div
       style={{
         minHeight: '100vh',
-        background: '#F5EDD6',
+        background: '#FFFFFF',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -137,7 +137,7 @@ export default function App() {
       {/* Tabs */}
       <div
         style={{
-          background: '#F5EDD6',
+          background: '#FFFFFF',
           borderBottom: '2px solid #D4C5A0',
           display: 'flex',
           padding: '0 16px',
@@ -218,7 +218,7 @@ export default function App() {
                 marginBottom: '4px',
               }}
             >
-              Groups A &ndash; F
+              ★&nbsp; Groups A &ndash; F &nbsp;★
             </div>
             {leftGroups.map((group) => (
               <GroupBlock
@@ -268,7 +268,7 @@ export default function App() {
                 marginBottom: '4px',
               }}
             >
-              Groups G &ndash; L
+              ★&nbsp; Groups G &ndash; L &nbsp;★
             </div>
             {rightGroups.map((group) => (
               <GroupBlock
