@@ -258,7 +258,7 @@ export function computeStandings(groupId, matches) {
 
   const stats = {}
   group.teams.forEach((team) => {
-    stats[team.id] = {
+    stats[team.code.toUpperCase()] = {
       team,
       played: 0,
       won: 0,
@@ -276,8 +276,8 @@ export function computeStandings(groupId, matches) {
   )
 
   groupMatches.forEach((match) => {
-    const home = stats[match.homeTeam.id]
-    const away = stats[match.awayTeam.id]
+    const home = stats[match.homeTeam?.code?.toUpperCase()]
+    const away = stats[match.awayTeam?.code?.toUpperCase()]
     if (!home || !away) return
 
     const hs = match.homeScore
