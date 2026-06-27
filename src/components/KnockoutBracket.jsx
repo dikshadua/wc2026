@@ -42,7 +42,7 @@ function BracketConnector({ wideRound, narrowRound, side }) {
     <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ height: LABEL_H + LABEL_MB, flexShrink: 0 }} />
       <svg width={GAP_W} height={TOTAL_H} style={{ display: 'block' }}>
-        <path d={d} stroke={GOLD} strokeWidth={1} fill="none" opacity={0.5} />
+        <path d={d} stroke={GREEN} strokeWidth={1.5} fill="none" opacity={0.45} />
       </svg>
     </div>
   )
@@ -56,7 +56,7 @@ function SFConnector({ side }) {
     <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ height: LABEL_H + LABEL_MB, flexShrink: 0 }} />
       <svg width={GAP_W} height={TOTAL_H} style={{ display: 'block' }}>
-        <path d={d} stroke={GOLD} strokeWidth={1} fill="none" opacity={0.5} />
+        <path d={d} stroke={GREEN} strokeWidth={1.5} fill="none" opacity={0.45} />
       </svg>
     </div>
   )
@@ -304,7 +304,7 @@ export default function KnockoutBracket({ knockoutMatches }) {
   const sfRight   = [sf[1]]
 
   return (
-    <div style={{ border: `2px solid ${GREEN}`, borderRadius: 3, overflow: 'hidden', background: WHITE }}>
+    <div style={{ border: `3px solid ${GREEN}`, borderRadius: 3, overflow: 'hidden', background: WHITE }}>
 
       {/* Header — matches GroupBlock header exactly */}
       <div style={{
