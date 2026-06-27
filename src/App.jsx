@@ -235,8 +235,6 @@ export default function App() {
             style={{
               flex: 1,
               minWidth: '600px',
-              position: 'sticky',
-              top: '8px',
             }}
           >
             <KnockoutBracket knockoutMatches={knockoutMatches} />

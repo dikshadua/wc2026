@@ -64,34 +64,6 @@ export default function Header() {
           </svg>
         </div>
       </div>
-
-      {/* Dark green "Tournament Command Center" banner */}
-      <div
-        style={{
-          background: '#1B4D2E',
-          textAlign: 'center',
-          padding: '6px 16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px',
-        }}
-      >
-        <span style={{ color: '#C9A227', fontSize: '14px' }}>★</span>
-        <span
-          style={{
-            fontFamily: 'Oswald, sans-serif',
-            fontWeight: 700,
-            fontSize: '0.9rem',
-            color: '#FFFFFF',
-            letterSpacing: '0.28em',
-            textTransform: 'uppercase',
-          }}
-        >
-          Tournament Command Center
-        </span>
-        <span style={{ color: '#C9A227', fontSize: '14px' }}>★</span>
-      </div>
     </div>
   )
 }
