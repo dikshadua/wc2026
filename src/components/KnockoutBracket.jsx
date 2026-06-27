@@ -4,21 +4,17 @@ const GREEN = '#1B4D2E'
 const GOLD  = '#C9A227'
 const WHITE = '#FFFFFF'
 
-// Layout — enlarged for readability
+// Layout constants — same enlarged sizing for readability
 const SLOT_H   = 34
-const SLOT_GAP = 4
-const MATCH_H  = SLOT_H * 2 + SLOT_GAP  // 72
+const SLOT_GAP = 1   // thin divider between slots
+const MATCH_H  = SLOT_H * 2 + SLOT_GAP  // 69
 const UNIT     = 100
 const TOTAL_H  = 8 * UNIT               // 800
 const COL_W    = 140
 const CTR_W    = 152
 const GAP_W    = 12
-const LABEL_H  = 28
+const LABEL_H  = 26
 const LABEL_MB = 6
-
-const SLOT_EMPTY  = '#F5F3EE'
-const SLOT_FILLED = '#EEF4EE'
-const SLOT_WIN    = '#FFFBE6'
 
 function matchTop(round, idx) {
   const span = Math.pow(2, round) * UNIT
@@ -29,7 +25,7 @@ function matchMidY(round, idx) {
   return matchTop(round, idx) + MATCH_H / 2
 }
 
-// SVG bracket connector between two adjacent columns
+// SVG bracket connector lines between adjacent columns
 function BracketConnector({ wideRound, narrowRound, side }) {
   const count = 8 / Math.pow(2, narrowRound)
   const mid = GAP_W / 2
@@ -46,13 +42,13 @@ function BracketConnector({ wideRound, narrowRound, side }) {
     <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ height: LABEL_H + LABEL_MB, flexShrink: 0 }} />
       <svg width={GAP_W} height={TOTAL_H} style={{ display: 'block' }}>
-        <path d={d} stroke={GOLD} strokeWidth={1.5} fill="none" opacity={0.6} />
+        <path d={d} stroke={GOLD} strokeWidth={1} fill="none" opacity={0.5} />
       </svg>
     </div>
   )
 }
 
-// Simple horizontal line from SF column into the Final
+// Straight connector from SF column into the Final
 function SFConnector({ side }) {
   const ym = matchMidY(3, 0)
   const d = side === 'left' ? `M 0 ${ym} H ${GAP_W}` : `M ${GAP_W} ${ym} H 0`
@@ -60,28 +56,25 @@ function SFConnector({ side }) {
     <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
       <div style={{ height: LABEL_H + LABEL_MB, flexShrink: 0 }} />
       <svg width={GAP_W} height={TOTAL_H} style={{ display: 'block' }}>
-        <path d={d} stroke={GOLD} strokeWidth={1.5} fill="none" opacity={0.6} />
+        <path d={d} stroke={GOLD} strokeWidth={1} fill="none" opacity={0.5} />
       </svg>
     </div>
   )
 }
 
 function TeamSlot({ label, team, score, isWinner }) {
-  const bg = isWinner ? SLOT_WIN : team ? SLOT_FILLED : SLOT_EMPTY
-
   return (
     <div style={{
       height: SLOT_H,
       display: 'flex',
       alignItems: 'center',
       paddingRight: 8,
-      gap: 6,
-      background: bg,
-      border: `1px solid ${isWinner ? GOLD : '#D0C9B5'}`,
+      gap: 5,
+      background: isWinner ? '#FFFBF0' : WHITE,
       borderLeft: `3px solid ${isWinner ? GOLD : 'transparent'}`,
       minWidth: 0,
     }}>
-      <div style={{ width: 36, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: 34, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {team && <FlagIcon code={team.flag} name={team.name} size="md" />}
       </div>
       {team ? (
@@ -90,8 +83,8 @@ function TeamSlot({ label, team, score, isWinner }) {
             flex: 1,
             fontSize: 11,
             fontFamily: 'Inter, sans-serif',
-            color: '#1A1A1A',
-            fontWeight: isWinner ? 700 : 500,
+            color: GREEN,
+            fontWeight: isWinner ? 600 : 400,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -100,9 +93,9 @@ function TeamSlot({ label, team, score, isWinner }) {
           </span>
           {score !== null && score !== undefined && (
             <span style={{
-              fontSize: 14,
+              fontSize: 13,
               fontFamily: 'Oswald, sans-serif',
-              color: isWinner ? '#7A5800' : '#222',
+              color: isWinner ? '#7A5800' : GREEN,
               fontWeight: 700,
               flexShrink: 0,
               minWidth: 16,
@@ -117,11 +110,11 @@ function TeamSlot({ label, team, score, isWinner }) {
           flex: 1,
           fontSize: 9,
           fontFamily: 'Oswald, sans-serif',
-          color: '#9A8E78',
+          color: '#999',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
-          letterSpacing: '0.05em',
+          letterSpacing: '0.04em',
         }}>
           {label}
         </span>
@@ -142,50 +135,49 @@ function MatchCard({ match, top, width }) {
       left: 0,
       width,
       height: MATCH_H,
-      borderRadius: 3,
+      border: `1px solid #DDDDDD`,
+      borderRadius: 2,
       overflow: 'hidden',
-      boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
+      background: WHITE,
     }}>
       {isLive && (
         <div style={{
-          position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
-          background: '#E74C3C', color: WHITE, fontSize: 7.5, fontFamily: 'Oswald, sans-serif',
-          padding: '1px 6px', borderRadius: 2, letterSpacing: '0.1em', zIndex: 10, whiteSpace: 'nowrap',
+          position: 'absolute', top: -11, left: '50%', transform: 'translateX(-50%)',
+          background: '#E74C3C', color: WHITE, fontSize: 7, fontFamily: 'Oswald, sans-serif',
+          padding: '1px 5px', borderRadius: 2, letterSpacing: '0.1em', zIndex: 10, whiteSpace: 'nowrap',
         }}>
           ● LIVE
         </div>
       )}
       <TeamSlot label={match.slot1Label} team={match.homeTeam} score={match.homeScore} isWinner={homeWon} />
-      <div style={{ height: SLOT_GAP, background: '#DDD8C8' }} />
+      <div style={{ height: SLOT_GAP, background: '#EEEEEE' }} />
       <TeamSlot label={match.slot2Label} team={match.awayTeam} score={match.awayScore} isWinner={awayWon} />
     </div>
   )
 }
 
+// Matches the "Matches" sub-header style from GroupBlock
 function RoundLabel({ text }) {
   return (
     <div style={{
       height: LABEL_H,
       boxSizing: 'border-box',
-      background: GREEN,
-      color: WHITE,
+      background: '#F0F0F0',
+      color: GREEN,
       textAlign: 'center',
-      padding: '2px 6px',
+      padding: '2px 4px',
       fontFamily: 'Oswald, sans-serif',
       fontWeight: 700,
-      fontSize: 10,
-      letterSpacing: '0.15em',
+      fontSize: 9,
+      letterSpacing: '0.12em',
       textTransform: 'uppercase',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 5,
       marginBottom: LABEL_MB,
-      borderRadius: 2,
+      borderBottom: `1px solid #DDDDDD`,
     }}>
-      <span style={{ color: GOLD, fontSize: 8 }}>★</span>
       {text}
-      <span style={{ color: GOLD, fontSize: 8 }}>★</span>
     </div>
   )
 }
@@ -209,9 +201,9 @@ function CenterSection({ final, thirdPlace }) {
   const t3HomeWon = thirdPlace.status === 'FINISHED' && thirdPlace.homeScore > thirdPlace.awayScore
   const t3AwayWon = thirdPlace.status === 'FINISHED' && thirdPlace.awayScore > thirdPlace.homeScore
 
-  const finalTop = matchTop(3, 0)          // 364
-  const champTop = finalTop + MATCH_H + 14 // 450
-  const thirdTop = TOTAL_H - MATCH_H - 50  // 678
+  const finalTop = matchTop(3, 0)
+  const champTop = finalTop + MATCH_H + 12
+  const thirdTop = TOTAL_H - MATCH_H - 52
 
   return (
     <div style={{ flexShrink: 0, width: CTR_W }}>
@@ -224,12 +216,13 @@ function CenterSection({ final, thirdPlace }) {
           top: finalTop,
           left: 0,
           width: CTR_W,
-          borderRadius: 3,
+          border: `1px solid ${GOLD}`,
+          borderRadius: 2,
           overflow: 'hidden',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
+          background: WHITE,
         }}>
           <TeamSlot label={final.slot1Label} team={final.homeTeam} score={final.homeScore} isWinner={homeWon} />
-          <div style={{ height: SLOT_GAP, background: GOLD, opacity: 0.35 }} />
+          <div style={{ height: SLOT_GAP, background: GOLD, opacity: 0.25 }} />
           <TeamSlot label={final.slot2Label} team={final.awayTeam} score={final.awayScore} isWinner={awayWon} />
         </div>
 
@@ -239,33 +232,32 @@ function CenterSection({ final, thirdPlace }) {
           top: champTop,
           left: 0,
           width: CTR_W,
-          background: `linear-gradient(145deg, ${GOLD} 0%, #D4A020 100%)`,
-          border: `2px solid #A07800`,
-          borderRadius: 5,
-          padding: '10px 8px',
+          background: GREEN,
+          border: `1px solid ${GOLD}`,
+          borderRadius: 2,
+          padding: '8px 6px',
           textAlign: 'center',
-          boxShadow: '0 3px 10px rgba(201,162,39,0.4)',
         }}>
           <div style={{
             fontFamily: 'Oswald, sans-serif',
             fontWeight: 700,
-            fontSize: 10,
-            color: GREEN,
+            fontSize: 9,
+            color: GOLD,
             letterSpacing: '0.16em',
-            marginBottom: 7,
+            marginBottom: 6,
             textTransform: 'uppercase',
           }}>
-            ★ World Champion ★
+            ◆ World Champion ◆
           </div>
           {final.winner ? (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
               <FlagIcon code={final.winner.flag} name={final.winner.name} size="md" />
-              <span style={{ fontSize: 14, fontFamily: 'Oswald, sans-serif', fontWeight: 700, color: GREEN }}>
+              <span style={{ fontSize: 13, fontFamily: 'Oswald, sans-serif', fontWeight: 700, color: WHITE }}>
                 {final.winner.name}
               </span>
             </div>
           ) : (
-            <div style={{ fontSize: 10, fontFamily: 'Oswald, sans-serif', color: '#5A3E00', opacity: 0.6 }}>
+            <div style={{ fontSize: 10, fontFamily: 'Oswald, sans-serif', color: GOLD, opacity: 0.6 }}>
               TBD
             </div>
           )}
@@ -274,23 +266,22 @@ function CenterSection({ final, thirdPlace }) {
         {/* 3rd Place */}
         <div style={{ position: 'absolute', top: thirdTop, left: 0, width: CTR_W }}>
           <div style={{
-            background: '#6B7A6B',
-            color: WHITE,
+            background: '#F0F0F0',
+            color: '#555',
             textAlign: 'center',
-            padding: '4px',
+            padding: '3px 4px',
             fontFamily: 'Oswald, sans-serif',
             fontWeight: 700,
             fontSize: 9,
-            letterSpacing: '0.12em',
+            letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            marginBottom: 4,
-            borderRadius: '2px 2px 0 0',
+            borderBottom: '1px solid #DDDDDD',
           }}>
             3rd Place
           </div>
-          <div style={{ borderRadius: '0 0 3px 3px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.12)' }}>
+          <div style={{ border: '1px solid #DDDDDD', borderTop: 'none', borderRadius: '0 0 2px 2px', overflow: 'hidden' }}>
             <TeamSlot label={thirdPlace.slot1Label} team={thirdPlace.homeTeam} score={thirdPlace.homeScore} isWinner={t3HomeWon} />
-            <div style={{ height: SLOT_GAP, background: '#DDD8C8' }} />
+            <div style={{ height: SLOT_GAP, background: '#EEEEEE' }} />
             <TeamSlot label={thirdPlace.slot2Label} team={thirdPlace.awayTeam} score={thirdPlace.awayScore} isWinner={t3AwayWon} />
           </div>
         </div>
@@ -313,35 +304,32 @@ export default function KnockoutBracket({ knockoutMatches }) {
   const sfRight   = [sf[1]]
 
   return (
-    <div style={{ background: '#F2EFE6', border: `2px solid ${GREEN}`, borderRadius: 4, overflow: 'hidden' }}>
+    <div style={{ border: `2px solid ${GREEN}`, borderRadius: 3, overflow: 'hidden', background: WHITE }}>
 
+      {/* Header — matches GroupBlock header exactly */}
       <div style={{
         background: GREEN,
-        borderBottom: `3px solid ${GOLD}`,
-        padding: '10px 16px',
+        fontFamily: 'Oswald, sans-serif',
+        fontWeight: 700,
+        fontSize: 13,
+        letterSpacing: '0.15em',
+        height: 28,
+        borderBottom: `2px solid ${GOLD}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 12,
+        color: WHITE,
+        gap: 0,
       }}>
-        <span style={{ color: GOLD, fontSize: 18 }}>★</span>
-        <span style={{
-          fontFamily: 'Oswald, sans-serif',
-          fontWeight: 700,
-          fontSize: '1.1rem',
-          color: WHITE,
-          letterSpacing: '0.25em',
-          textTransform: 'uppercase',
-        }}>
-          Knockout Stage
-        </span>
-        <span style={{ color: GOLD, fontSize: 18 }}>★</span>
+        <span style={{ color: GOLD, marginRight: 8 }}>&#9670;</span>
+        KNOCKOUT STAGE
+        <span style={{ color: GOLD, marginLeft: 8 }}>&#9670;</span>
       </div>
 
-      <div style={{ padding: '10px 8px' }}>
+      <div style={{ padding: '10px 8px', background: WHITE }}>
         <div style={{ display: 'flex', alignItems: 'flex-start' }}>
 
-          {/* LEFT: RO32 → RO16 → QF → SF → Final */}
+          {/* LEFT: RO32 → RO16 → QF → SF */}
           <RoundColumn matches={ro32Left}  round={0} label="RO32" />
           <BracketConnector wideRound={0} narrowRound={1} side="left" />
           <RoundColumn matches={ro16Left}  round={1} label="RO16" />
@@ -353,7 +341,7 @@ export default function KnockoutBracket({ knockoutMatches }) {
 
           <CenterSection final={final} thirdPlace={thirdPlace} />
 
-          {/* RIGHT: Final → SF → QF → RO16 → RO32 */}
+          {/* RIGHT: SF → QF → RO16 → RO32 */}
           <SFConnector side="right" />
           <RoundColumn matches={sfRight}   round={3} label="SF" />
           <BracketConnector wideRound={2} narrowRound={3} side="right" />
@@ -367,11 +355,11 @@ export default function KnockoutBracket({ knockoutMatches }) {
       </div>
 
       <div style={{
-        background: '#E8E4D8',
-        borderTop: `1px solid #C8C4B0`,
-        padding: '4px 10px',
+        background: '#F5F5F5',
+        borderTop: '1px solid #DDDDDD',
+        padding: '3px 10px',
         textAlign: 'center',
-        fontSize: 9,
+        fontSize: 8,
         fontFamily: 'Oswald, sans-serif',
         color: '#666',
         letterSpacing: '0.1em',
