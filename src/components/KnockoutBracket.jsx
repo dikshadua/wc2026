@@ -4,17 +4,14 @@ const GREEN = '#1B4D2E'
 const GOLD  = '#C9A227'
 const WHITE = '#FFFFFF'
 
-// Layout constants — same enlarged sizing for readability
 const SLOT_H   = 34
-const SLOT_GAP = 1   // thin divider between slots
+const SLOT_GAP = 1
 const MATCH_H  = SLOT_H * 2 + SLOT_GAP  // 69
 const UNIT     = 100
 const TOTAL_H  = 8 * UNIT               // 800
 const COL_W    = 140
 const CTR_W    = 152
-const GAP_W    = 12
-const LABEL_H  = 26
-const LABEL_MB = 6
+const GAP_W    = 24  // wider so connector lines are clearly visible
 
 function matchTop(round, idx) {
   const span = Math.pow(2, round) * UNIT
@@ -25,7 +22,7 @@ function matchMidY(round, idx) {
   return matchTop(round, idx) + MATCH_H / 2
 }
 
-// SVG bracket connector lines between adjacent columns
+// SVG bracket connector — no spacer needed since labels are in the top header row
 function BracketConnector({ wideRound, narrowRound, side }) {
   const count = 8 / Math.pow(2, narrowRound)
   const mid = GAP_W / 2
@@ -39,26 +36,19 @@ function BracketConnector({ wideRound, narrowRound, side }) {
   }).join(' ')
 
   return (
-    <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-      <div style={{ height: LABEL_H + LABEL_MB, flexShrink: 0 }} />
-      <svg width={GAP_W} height={TOTAL_H} style={{ display: 'block' }}>
-        <path d={d} stroke={GREEN} strokeWidth={1.5} fill="none" opacity={0.45} />
-      </svg>
-    </div>
+    <svg width={GAP_W} height={TOTAL_H} style={{ flexShrink: 0, display: 'block' }}>
+      <path d={d} stroke={GREEN} strokeWidth={1.5} fill="none" opacity={0.45} />
+    </svg>
   )
 }
 
-// Straight connector from SF column into the Final
 function SFConnector({ side }) {
   const ym = matchMidY(3, 0)
   const d = side === 'left' ? `M 0 ${ym} H ${GAP_W}` : `M ${GAP_W} ${ym} H 0`
   return (
-    <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-      <div style={{ height: LABEL_H + LABEL_MB, flexShrink: 0 }} />
-      <svg width={GAP_W} height={TOTAL_H} style={{ display: 'block' }}>
-        <path d={d} stroke={GREEN} strokeWidth={1.5} fill="none" opacity={0.45} />
-      </svg>
-    </div>
+    <svg width={GAP_W} height={TOTAL_H} style={{ flexShrink: 0, display: 'block' }}>
+      <path d={d} stroke={GREEN} strokeWidth={1.5} fill="none" opacity={0.45} />
+    </svg>
   )
 }
 
@@ -156,36 +146,10 @@ function MatchCard({ match, top, width }) {
   )
 }
 
-// Matches the "Matches" sub-header style from GroupBlock
-function RoundLabel({ text }) {
-  return (
-    <div style={{
-      height: LABEL_H,
-      boxSizing: 'border-box',
-      background: '#F0F0F0',
-      color: GREEN,
-      textAlign: 'center',
-      padding: '2px 4px',
-      fontFamily: 'Oswald, sans-serif',
-      fontWeight: 700,
-      fontSize: 9,
-      letterSpacing: '0.12em',
-      textTransform: 'uppercase',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: LABEL_MB,
-      borderBottom: `1px solid #DDDDDD`,
-    }}>
-      {text}
-    </div>
-  )
-}
-
-function RoundColumn({ matches, round, label }) {
+// No round label — labels live in the top header row
+function RoundColumn({ matches, round }) {
   return (
     <div style={{ flexShrink: 0, width: COL_W }}>
-      <RoundLabel text={label} />
       <div style={{ position: 'relative', width: COL_W, height: TOTAL_H }}>
         {matches.map((match, i) => (
           <MatchCard key={match.id} match={match} top={matchTop(round, i)} width={COL_W} />
@@ -207,7 +171,6 @@ function CenterSection({ final, thirdPlace }) {
 
   return (
     <div style={{ flexShrink: 0, width: CTR_W }}>
-      <RoundLabel text="Final" />
       <div style={{ position: 'relative', width: CTR_W, height: TOTAL_H }}>
 
         {/* Final match */}
@@ -257,9 +220,7 @@ function CenterSection({ final, thirdPlace }) {
               </span>
             </div>
           ) : (
-            <div style={{ fontSize: 10, fontFamily: 'Oswald, sans-serif', color: GOLD, opacity: 0.6 }}>
-              TBD
-            </div>
+            <div style={{ fontSize: 10, fontFamily: 'Oswald, sans-serif', color: GOLD, opacity: 0.6 }}>TBD</div>
           )}
         </div>
 
@@ -291,6 +252,52 @@ function CenterSection({ final, thirdPlace }) {
   )
 }
 
+// Single top header row with all round names — matches reference bracket style
+function RoundNamesHeader() {
+  const cell = (w, text) => (
+    <div style={{
+      width: w,
+      flexShrink: 0,
+      textAlign: 'center',
+      padding: '7px 4px',
+      fontFamily: 'Oswald, sans-serif',
+      fontWeight: 700,
+      fontSize: 10,
+      letterSpacing: '0.12em',
+      textTransform: 'uppercase',
+      color: GREEN,
+      borderRight: `1px solid #E0E0E0`,
+    }}>
+      {text}
+    </div>
+  )
+  const gap = <div style={{ width: GAP_W, flexShrink: 0, borderRight: `1px solid #E0E0E0` }} />
+
+  return (
+    <div style={{ display: 'flex', background: '#F5F5F5', borderBottom: `2px solid ${GREEN}` }}>
+      <div style={{ width: 8, flexShrink: 0 }} />
+      {cell(COL_W, 'Round of 32')}
+      {gap}
+      {cell(COL_W, 'Round of 16')}
+      {gap}
+      {cell(COL_W, 'Quarterfinals')}
+      {gap}
+      {cell(COL_W, 'Semifinals')}
+      {gap}
+      {cell(CTR_W, 'Final')}
+      {gap}
+      {cell(COL_W, 'Semifinals')}
+      {gap}
+      {cell(COL_W, 'Quarterfinals')}
+      {gap}
+      {cell(COL_W, 'Round of 16')}
+      {gap}
+      {cell(COL_W, 'Round of 32')}
+      <div style={{ width: 8, flexShrink: 0 }} />
+    </div>
+  )
+}
+
 export default function KnockoutBracket({ knockoutMatches }) {
   const { ro32, ro16, qf, sf, final, thirdPlace } = knockoutMatches
 
@@ -306,7 +313,7 @@ export default function KnockoutBracket({ knockoutMatches }) {
   return (
     <div style={{ border: `3px solid ${GREEN}`, borderRadius: 3, overflow: 'hidden', background: WHITE }}>
 
-      {/* Header — matches GroupBlock header exactly */}
+      {/* Section header — matches GroupBlock */}
       <div style={{
         background: GREEN,
         fontFamily: 'Oswald, sans-serif',
@@ -314,42 +321,44 @@ export default function KnockoutBracket({ knockoutMatches }) {
         fontSize: 13,
         letterSpacing: '0.15em',
         height: 28,
-        borderBottom: `2px solid ${GOLD}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: WHITE,
-        gap: 0,
       }}>
         <span style={{ color: GOLD, marginRight: 8 }}>&#9670;</span>
         KNOCKOUT STAGE
         <span style={{ color: GOLD, marginLeft: 8 }}>&#9670;</span>
       </div>
 
+      {/* Round names header row */}
+      <RoundNamesHeader />
+
+      {/* Bracket */}
       <div style={{ padding: '10px 8px', background: WHITE }}>
         <div style={{ display: 'flex', alignItems: 'flex-start' }}>
 
           {/* LEFT: RO32 → RO16 → QF → SF */}
-          <RoundColumn matches={ro32Left}  round={0} label="RO32" />
+          <RoundColumn matches={ro32Left}  round={0} />
           <BracketConnector wideRound={0} narrowRound={1} side="left" />
-          <RoundColumn matches={ro16Left}  round={1} label="RO16" />
+          <RoundColumn matches={ro16Left}  round={1} />
           <BracketConnector wideRound={1} narrowRound={2} side="left" />
-          <RoundColumn matches={qfLeft}    round={2} label="QF" />
+          <RoundColumn matches={qfLeft}    round={2} />
           <BracketConnector wideRound={2} narrowRound={3} side="left" />
-          <RoundColumn matches={sfLeft}    round={3} label="SF" />
+          <RoundColumn matches={sfLeft}    round={3} />
           <SFConnector side="left" />
 
           <CenterSection final={final} thirdPlace={thirdPlace} />
 
           {/* RIGHT: SF → QF → RO16 → RO32 */}
           <SFConnector side="right" />
-          <RoundColumn matches={sfRight}   round={3} label="SF" />
+          <RoundColumn matches={sfRight}   round={3} />
           <BracketConnector wideRound={2} narrowRound={3} side="right" />
-          <RoundColumn matches={qfRight}   round={2} label="QF" />
+          <RoundColumn matches={qfRight}   round={2} />
           <BracketConnector wideRound={1} narrowRound={2} side="right" />
-          <RoundColumn matches={ro16Right} round={1} label="RO16" />
+          <RoundColumn matches={ro16Right} round={1} />
           <BracketConnector wideRound={0} narrowRound={1} side="right" />
-          <RoundColumn matches={ro32Right} round={0} label="RO32" />
+          <RoundColumn matches={ro32Right} round={0} />
 
         </div>
       </div>
